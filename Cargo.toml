@@ -1,0 +1,8 @@
+[package]
+name = "dungeon_crawler"
+version = "0.1.0"
+authors = ["Arthur Renon <renon.arthur@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+bracket-lib = "~0.8.1"
