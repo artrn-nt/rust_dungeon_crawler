@@ -3,6 +3,7 @@
 mod map;
 mod map_builder;
 mod player;
+mod camera;
 
 mod prelude {
     pub use bracket_lib::prelude::*;
@@ -13,13 +14,15 @@ mod prelude {
     pub use crate::map::*;
     pub use crate::player::*;
     pub use crate::map_builder::*;
+    pub use crate::camera::*;
 }
 
 use prelude::*;
 
 struct State {
     map: Map,
-    player: Player
+    player: Player,
+    camera: Camera
 }
 
 impl State {
@@ -29,6 +32,7 @@ impl State {
         Self {
             map: map_builder.map,
             player: Player::new(map_builder.player_start),
+            camera: Camera::new(map_builder.player_start)
         }
     }
 }
