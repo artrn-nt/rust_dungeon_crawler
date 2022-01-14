@@ -2,7 +2,7 @@ use crate::prelude::*;
 
 #[system]
 #[read_component(Point)]
-#[read_compoennt(Player)]
+#[read_component(Player)]
 #[read_component(Enemy)]
 pub fn collisions(ecs: &mut SubWorld, commands: &mut CommandBuffer) {
     let mut player_pos = Point::zero();
