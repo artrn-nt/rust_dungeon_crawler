@@ -75,19 +75,19 @@ impl GameState for State {
                 self.input_systems.execute(
                     &mut self.ecs,
                     &mut self.resources
-                )
+                );
             },
             TurnState::PlayerTurn => {
                 self.player_systems.execute(
                     &mut self.ecs,
                     &mut self.resources
-                )
+                );
             },
             TurnState::MonsterTurn => {
                 self.monster_systems.execute(
                     &mut self.ecs,
                     &mut self.resources
-                )
+                );
             }
         };
         render_draw_buffer(ctx).expect("Render error");
