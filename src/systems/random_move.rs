@@ -8,6 +8,7 @@ use crate::prelude::*;
 pub fn random_move(ecs: &mut SubWorld, commands: &mut CommandBuffer) {
     let mut movers = <(Entity, &Point, &MovingRandomly)>::query();
     let mut positions = <(Entity, &Point, &Health)>::query();
+
     movers
         .iter(ecs)
         .for_each(|(entity, pos, _)| {
@@ -26,7 +27,8 @@ pub fn random_move(ecs: &mut SubWorld, commands: &mut CommandBuffer) {
                 .filter(|(_, target_pos, _)| **target_pos == destination)
                 .for_each(|(victim, _, _)| {
                     if ecs.entry_ref(*victim)
-                        .unwrap().get_component::<Player>().is_ok()
+                        .unwrap()
+                        .get_component::<Player>().is_ok()
                         {
                             commands.push(((), WantsToAttack {
                                 attacker: *entity,
