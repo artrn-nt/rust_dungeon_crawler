@@ -16,4 +16,13 @@ pub fn chasing(
 
     let player_pos = player.iter(ecs).nth(0).unwrap().0;
     let player_idx = map_idx(player_pos.x, player_pos.y);
+
+    let search_targets = vec![player_idx];
+    let dijkstra_map = DijkstraMap::new(
+        SCREEN_WIDTH,
+        SCREEN_HEIGHT,
+        &search_targets,
+        map, 
+        1024.0
+    )
 } 
