@@ -9,7 +9,8 @@ pub fn spawn_player(ecs: &mut World, pos: Point) {
                 color: ColorPair::new(WHITE, BLACK),
                 glyph: to_cp437('@')
             },
-            Health{ current: 30, max: 30 }
+            Health{ current: 30, max: 30 },
+            FieldOfView::new(8)
         )
     );
 }
@@ -34,7 +35,8 @@ pub fn spawn_monster(
             },
             ChasingPlayer {},
             Health { current: hp, max: hp },
-            Name(name)
+            Name(name),
+            FieldOfView::new(6)
         )
     );
 }
