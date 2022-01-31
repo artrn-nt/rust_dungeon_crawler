@@ -2,6 +2,7 @@ use crate::prelude::*;
 use empty::EmptyArchitect;
 use rooms::RoomsArchitect;
 
+mod automata;
 mod empty;
 mod rooms;
 
