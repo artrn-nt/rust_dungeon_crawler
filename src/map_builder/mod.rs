@@ -1,10 +1,7 @@
 use crate::prelude::*;
-use empty::EmptyArchitect;
-use rooms::RoomsArchitect;
+use automata::CellularAutomataArchitect;
 
 mod automata;
-mod empty;
-mod rooms;
 
 trait MapArchitect {
     fn new(&mut self, rng: &mut RandomNumberGenerator) -> MapBuilder;
@@ -22,7 +19,7 @@ pub struct MapBuilder {
 
 impl MapBuilder {
     pub fn new(rng: &mut RandomNumberGenerator) -> Self {
-        let mut architect = RoomsArchitect {};
+        let mut architect = CellularAutomataArchitect {};
         architect.new(rng)
     }
 
@@ -136,7 +133,7 @@ impl MapBuilder {
             spawns.push(spawnable_tiles[target_index].clone());
             spawnable_tiles.remove(target_index);
         }
-        
+
         return spawns
     }
 }
