@@ -13,7 +13,7 @@ impl MapArchitect for DrunkardsWalkArchitect {
             map: Map::new(),
             rooms: Vec::new(),
             monster_spawns: Vec::new(),
-            player_start: Point:zero(),
+            player_start: Point::zero(),
             amulet_start: Point::zero()
         };
 
@@ -49,13 +49,15 @@ impl MapArchitect for DrunkardsWalkArchitect {
                 .for_each(|(idx, _)| mb.map.tiles[idx] = TileType::Wall);
         }
 
-        mb.monster_spawns = mb.spawn_monsters(&center, rng );
+        mb.monster_spawns = mb.spawn_monsters(&center, rng);
         mb.player_start = center;
         mb.amulet_start = mb.find_most_distant();
 
         return mb
     }
+}
 
+impl DrunkardsWalkArchitect {
     fn drunkard(&mut self, start: &Point, rng: &mut RandomNumberGenerator, map: &mut Map) {
         let mut drunkard_pos = start.clone();
         let mut distance_staggered = 0;
@@ -76,7 +78,7 @@ impl MapArchitect for DrunkardsWalkArchitect {
             }
 
             distance_staggered += 1;
-            if distance_staggered > STAGGER_DISATNCE {
+            if distance_staggered > STAGGER_DISTANCE {
                 break;
             }
         }
