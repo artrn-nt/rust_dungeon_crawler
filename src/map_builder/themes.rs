@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
-pub struct DungeonTheme {};
-pub struct ForestTheme {};
+pub struct DungeonTheme {}
+pub struct ForestTheme {}
 
 impl DungeonTheme {
     pub fn new() -> Box<dyn MapTheme> {

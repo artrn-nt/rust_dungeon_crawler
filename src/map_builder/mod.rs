@@ -4,11 +4,13 @@ mod drunkard;
 mod empty;
 mod prefab;
 mod rooms;
+mod themes;
 
 use automata::CellularAutomataArchitect;
 use drunkard::DrunkardsWalkArchitect;
 use prefab::apply_prefab;
 use rooms::RoomsArchitect;
+pub use themes::*;
 
 const NUM_ROOMS: usize = 20;
 
@@ -25,7 +27,8 @@ pub struct MapBuilder {
     pub rooms : Vec<Rect>,
     pub monster_spawns : Vec<Point>,
     pub player_start : Point,
-    pub amulet_start : Point
+    pub amulet_start : Point,
+    pub theme: Box<dyn MapTheme>
 }
 
 impl MapBuilder {
@@ -38,6 +41,11 @@ impl MapBuilder {
 
         let mut mb = architect.new(rng);
         apply_prefab(&mut mb, rng);
+
+        mb.theme = match rng.range(0, 2) {
+            0 => DungeonTheme::new(),
+            _ => ForestTheme::new()
+        };
 
         return mb
     }
