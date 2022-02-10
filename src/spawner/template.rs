@@ -74,36 +74,36 @@ impl Templates {
             },
             Name(template.name.clone())
         ));
-    }
 
-    match template.entity_type {
-        EntityType::Item => commands.add_component(entity, Item {}),
-        EntityType::Enemy => {
-            commands.add_component(entity, Enemy {});
-            commands.add_component(entity, FieldOfView::new(6));
-            commands.add_component(entity, ChasingPlayer {});
-            commands.add_component(entity, Health {
-                current: template.hp.unwrap(),
-                max: template.hp.unwrap()
+        match template.entity_type {
+            EntityType::Item => commands.add_component(entity, Item {}),
+            EntityType::Enemy => {
+                commands.add_component(entity, Enemy {});
+                commands.add_component(entity, FieldOfView::new(6));
+                commands.add_component(entity, ChasingPlayer {});
+                commands.add_component(entity, Health {
+                    current: template.hp.unwrap(),
+                    max: template.hp.unwrap()
+                });
+            }
+        }
+
+        if let Some(effects) = &template.provides {
+            effects.iter().for_each(|(provides, n)| {
+                match provides.as_str() {
+                    "Healing" => commands.add_component(
+                        entity,
+                        ProvidesHealing { amount: *n },
+                    ),
+                    "MagicMap" => commands.add_component(
+                        entity,
+                        ProvidesDungeonMap {},
+                    ),
+                    _ => {
+                        println!("Warning: we don't know how to provide {}", provides);
+                    }
+                }
             });
         }
-    }
-
-    if let Some(effects) = &template.provides {
-        effects.iter().for_each(|(provides, n)| {
-            match provides.as_str() {
-                "Healing" => commands.add_component(
-                    entity,
-                    ProvidesHealing { amount: *n },
-                ),
-                "MagicMap" => commands.add_component(
-                    entity,
-                    ProvidesDungeonMap {},
-                ),
-                _ => {
-                    println!("Warning: we don't know how to provide {}", provides);
-                }
-            }
-        });
     }
 }

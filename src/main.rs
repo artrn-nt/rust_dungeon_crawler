@@ -49,7 +49,7 @@ impl State {
         let exit_idx = map_builder.map.point2d_to_index(map_builder.amulet_start);
         map_builder.map.tiles[exit_idx] = TileType::Exit;
         spawn_level(
-            &mut self.ecs,
+            &mut ecs,
             &mut rng,
             0,
             &map_builder.monster_spawns
