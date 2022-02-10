@@ -1,9 +1,8 @@
-use crate::preude::*;
+use crate::prelude::*;
 use serde::Deserialize;
 use::ron::de::from_reader;
 use std::fs::File;
 use std::collections::HashSet;
-use legion::systems::CommandBuffer;
 
 #[derive(Clone, Deserialize, Debug)]
 pub struct Template {
@@ -51,7 +50,7 @@ impl Templates {
                 }
             });
 
-        let mut commands = CommandBuffer::new(ecs);
+        let mut commands = legion::systems::CommandBuffer::new(ecs);
         spawn_points.iter().for_each(|pt| {
             if let Some(entity) = rng.random_slice_entry(&available_entities) {
                 self.spawn_entity(pt, entity, &mut commands);
@@ -97,12 +96,12 @@ impl Templates {
                     entity,
                     ProvidesHealing { amount: *n },
                 ),
-                "MagiMap" => commands.add_component(
+                "MagicMap" => commands.add_component(
                     entity,
                     ProvidesDungeonMap {},
                 ),
                 _ => {
-                    println!("Warning: we don't know how to provide {}", provides)
+                    println!("Warning: we don't know how to provide {}", provides);
                 }
             }
         });
