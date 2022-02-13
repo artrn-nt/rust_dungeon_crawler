@@ -27,12 +27,24 @@ pub fn player_input(
                     .iter(ecs)
                     .find_map(|(entity, pos)| Some((*entity, *pos)))
                     .unwrap();
+
                 let mut items = <(Entity, &Item, &Point)>::query();
                 items.iter(ecs)
                     .filter(|(_entity, _item, &item_pos)| item_pos == player_pos)
                     .for_each(|(entity, _item, _item_pos)| {
                         commands.remove_component::<Point>(*entity);
                         commands.add_component(*entity, Carried(player));
+
+                        if let Ok(e) = ecs.entry_ref(*entity) {
+                            if e.get_component::<Weapon>().is_ok() {
+                                <(Entity, &Carried, &Weapon)>::query()
+                                    .iter(ecs)
+                                    .filter(|(_, c, _)| c.0 == player)
+                                    .for_each(|(e, c, w)| {
+                                        commands.remove(*e);
+                                    });
+                            }
+                        }
                     });
 
                 Point::new(0, 0)
